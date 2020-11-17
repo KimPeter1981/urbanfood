@@ -22,10 +22,8 @@ router.get('/file', (req, res) => {
 
 router.post('/discovery', multerMid.single('file'), async (req, res, next) => {
     try {
-      //let result = await fashionFileService.uploadImage(req.file);
-      //res.status(200).send(result);
-      await fashionDiscovery.fashionDiscover(req.file);
-      res.status(200).send();
+      let files = await fashionDiscovery.fashionDiscover(req.file);
+      res.status(200).send(files);
     } catch(e) {
       next(e);
       res.status(500).send(e);
