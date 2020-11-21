@@ -1,7 +1,7 @@
 const vision = require('@google-cloud/vision');
 
 const client = new vision.ImageAnnotatorClient({
-    keyFilename: './services/fashion-discovery-76368c77cb55.json'
+    keyFilename: './services/Fashion Discovery-03140797ee88.json'
 });
 
 const getObjects = async (uploadFile) => {
