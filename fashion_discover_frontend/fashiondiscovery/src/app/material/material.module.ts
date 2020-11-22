@@ -5,9 +5,10 @@ import {MatIconModule} from '@angular/material/icon'
 import {MatBadgeModule} from '@angular/material/badge'
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import {MatToolbarModule} from '@angular/material/toolbar'
+import {MatInputModule} from '@angular/material/input';
 
 const MaterialComponents = [MatButtonModule, MatButtonToggleModule, MatIconModule,
-                            MatBadgeModule, MatProgressSpinnerModule, MatToolbarModule];
+                            MatBadgeModule, MatProgressSpinnerModule, MatToolbarModule, MatInputModule];
 
 @NgModule({
   imports: [MaterialComponents],

@@ -1,7 +1,10 @@
-button {
-    margin-right: 3rem;
+.upload {
+    display: flex;
+    width: 100%;
+    height: 100%;
 }
 
-div {
-    margin: 3rem;
+app-upload {
+    margin-top: 20%;
+    margin-left: 50%;
 }

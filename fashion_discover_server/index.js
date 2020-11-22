@@ -2,11 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fashionFileController = require('./controller/fashionFileController');
 const fashionDiscoverController = require('./controller/fashionDiscoverController');
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
 
 const server = express();
 
+server.use(cors());
 server.use(express.static('static'));
 server.use(bodyParser.json());
 server.use('/fashion', fashionFileController);
