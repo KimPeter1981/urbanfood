@@ -1,5 +1,18 @@
-<button mat-raised-button color="primary" (click)="openFile()">Bild hochladen
-    <input type="file" style="display:none" (change)="handle($event.target.files)">
-</button>
+<div class="fashion_show">
+    <div *ngIf="fashionDiscoveryResponse !== null">
+        <!--<img [src]="uploadedFile(fashionDiscoveryResponse.uploadfile)" height="720" width="400"> height="620" width="260"-->
+        <img [src]="uploadedFile(fashionDiscoveryResponse.uploadfile)">
+    </div>
+    <button mat-raised-button color="primary" (click)="openFile()">Bild hochladen
+        <input type="file" style="display:none" (change)="handle($event.target.files)">
+    </button>
+    <div *ngIf="(fashionDiscoveryResponse !== null) && fashionDiscoveryResponse.fashionPaths">
+        <div *ngFor="let part of fashionDiscoveryResponse.fashionPaths">
+            <img [src]="fashionPartFile(part)">
+        </div>
+    </div>
+</div>
+
+
 
 

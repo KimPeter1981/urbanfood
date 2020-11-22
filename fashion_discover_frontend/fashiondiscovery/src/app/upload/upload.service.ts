@@ -19,4 +19,14 @@ export class UploadService {
     return this.http.post(endpoint, formData);
   }
 
+  getUploadedFile (filename: string): string {
+    const endpoint = this._backendUrl + '/upload/' + filename;
+    return endpoint;
+  }
+
+  getFashionPart (filename: string): string {
+    const endpoint = this._backendUrl + '/fashion/' + filename;
+    return endpoint;
+  }
+
 }

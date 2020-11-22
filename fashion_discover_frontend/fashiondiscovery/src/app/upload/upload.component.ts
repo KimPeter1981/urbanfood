@@ -10,9 +10,19 @@ export class UploadComponent implements OnInit {
 
   fileToUpload: File = null;
 
+  public fashionDiscoveryResponse: any = null;
+
   constructor(private uploadService: UploadService) { }
 
   ngOnInit(): void {
+  }
+
+  uploadedFile(uploadfile: string): string {
+    return this.uploadService.getUploadedFile(uploadfile);
+  }
+
+  fashionPartFile(uploadedFile: string): string {
+    return this.uploadService.getFashionPart(uploadedFile);
   }
 
   openFile(){
@@ -23,7 +33,8 @@ export class UploadComponent implements OnInit {
     this.fileToUpload = files.item(0);
     this.uploadService.fashionDiscover(this.fileToUpload).subscribe(
       data => {
-        console.log(data)
+        this.fashionDiscoveryResponse = data;
+        console.log(this.fashionDiscoveryResponse.uploadfile);
       }, error => {
         console.log(error);
       }
