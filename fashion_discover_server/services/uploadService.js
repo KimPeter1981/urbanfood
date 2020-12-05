@@ -1,8 +1,7 @@
 const {Storage} = require('@google-cloud/storage');
-const fs = require('fs');
 
 const gc = new Storage({
-    keyFilename: './services/Fashion Discovery-03140797ee88.json',
+    keyFilename: './services/fashiondiscovery.json',
     projectId: 'fashion-discovery'
 });
 
