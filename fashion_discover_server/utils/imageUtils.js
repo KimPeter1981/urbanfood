@@ -1,11 +1,34 @@
 const sizeOf = require('image-size');
 const sharp = require('sharp');
-// const {test} = require('./test');
+// const probe = require('probe-image-size');
 
-//const testFile = '../services/isabel.jpg';
+var url = require('url');
+var https = require('https');
 
-const convertNormalizedVertices = (objectDetection, file) => {
-  let dimensions = sizeOf(file);
+// var imgUrl = 'https://storage.googleapis.com/fashion-discovery/upload/blue_mantel.jpg';
+
+const sizeOfImage = async (imgUrl) => {
+  var options = url.parse(imgUrl);
+  return new Promise((resolve, reject) => {
+      https.get(options, function (response) {
+        var chunks = [];
+        response.on('data', function (chunk) {
+        chunks.push(chunk);
+      }).on('end', function() {
+        var buffer = Buffer.concat(chunks);
+        let dimension = sizeOf(buffer);
+        resolve(dimension);
+      });
+    });
+  })
+}
+
+const convertNormalizedVertices = async (objectDetection, file) => {
+  // let dimensions = sizeOf(file);
+  let url = 'https://storage.googleapis.com/fashion-discovery/upload/' + file;
+  // console.log(url);
+  let dimensions = await sizeOfImage(url);
+  // console.log(dimensions);
   for (i=0;i < objectDetection.length;i++) {
     for (j=0;j < objectDetection[i].boundingPoly.normalizedVertices.length;j++) {
       let normalizedX = objectDetection[i].boundingPoly.normalizedVertices[j].x;
@@ -17,9 +40,14 @@ const convertNormalizedVertices = (objectDetection, file) => {
 }
 
 const cutPictureParts = async (objectDetection, uploadfile) => {
-  const uploadPath = './static/upload/' + uploadfile;
-  const fashionPath = './static/fashion/'
-  let objectWithVertices = convertNormalizedVertices(objectDetection, uploadPath);
+  // const uploadPath = './static/upload/' + uploadfile;
+  const uploadPath = 'gs://fashion-discovery/upload/' + uploadfile;
+  const fashionPath = 'gs://fashion-discovery/fashion/'
+  // const fashionPath = './static/fashion/';
+  console.log('uploadPath: ' + uploadPath);
+  console.log('fashionPath: ' + fashionPath);
+  // let objectWithVertices = convertNormalizedVertices(objectDetection, uploadPath);
+  let objectWithVertices = await convertNormalizedVertices(objectDetection, uploadfile);
   let i = 0;
   let fashionParts = [];
   objectWithVertices.forEach(async (object) => {

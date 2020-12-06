@@ -3,6 +3,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const fashionDiscovery = require('../services/fashionDiscover');
+const vision = require('@google-cloud/vision');
 
 
 const multerMid = multer({
@@ -18,6 +19,21 @@ router.use(bodyParser.urlencoded({extended: false}))
 
 router.get('/file', (req, res) => {
     res.status(200).send({message: 'File upload'});
+})
+
+const client = new vision.ImageAnnotatorClient({
+    keyFilename: './controller/fashiondiscovery.json'
+});
+
+const getObjects = async () => {
+  const [result] = await client.objectLocalization('gs://fashion-discovery/nike_shoes.jpg');
+  const objects = result.localizedObjectAnnotations;
+  return objects;
+}
+
+router.get('/test', async (req, res) => {
+  let obj = await getObjects();
+  res.status(200).send(obj);
 })
 
 router.post('/discovery', multerMid.single('file'), async (req, res, next) => {

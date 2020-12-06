@@ -1,6 +1,7 @@
 const fs = require('fs');1
 const visionService = require('./visionService');
 const imageUtils = require('../utils/imageUtils');
+const uploadService = require('./uploadService');
 
 const fashionImageUpload = async (file) => new Promise((resolve, reject) => {
     if (!file) {
@@ -29,7 +30,8 @@ const fashionImageUpload = async (file) => new Promise((resolve, reject) => {
 
 const fashionDiscover = async (file) => {
   try {
-    let result = await fashionImageUpload(file);
+    // let result = await fashionImageUpload(file);
+    let result = await uploadService.uploadImage(file, 'upload/')
     let objects = await visionService.getObjects(result);
     let fashionPaths = await imageUtils.cutPictureParts(objects, result.uploadfile); 
     result.objects = objects;

@@ -21,7 +21,7 @@ router.get('/file', (req, res) => {
 
 router.post('/upload', multerMid.single('file'), async (req, res, next) => {
    try {
-     let result = await fashionFileService.uploadImage(req.file);
+     let result = await fashionFileService.uploadImage(req.file, 'upload/');
      res.status(200).send(result);
    } catch(e) {
      next(e);

@@ -9,7 +9,8 @@ const PORT = process.env.PORT || 3000;
 const server = express();
 
 server.use(cors());
-server.use(express.static('static'));
+// server.use(express.static('static'));
+// server.use(express.static('gs://fashion-discovery'));
 server.use(bodyParser.json());
 server.use('/fashion', fashionFileController);
 server.use('/fashion', fashionDiscoverController);
