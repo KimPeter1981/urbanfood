@@ -1,6 +1,8 @@
 const {Storage} = require('@google-cloud/storage');
 const sharp = require('sharp');
 
+var fs = require('fs');
+
 const gc = new Storage({
     keyFilename: './services/fashiondiscovery.json',
     projectId: 'fashion-discovery'
@@ -33,8 +35,14 @@ const uploadImage = async (file, folder) => new Promise((resolve, reject) => {
     blobStream.end(file.buffer);
 })
 
-const sharpTest = async () => {
-    
+const sharpTest = () => {
+  var readableStream = fs.createReadStream('blue_mantel.jpg');
+  var writableStream = fs.createWriteStream('blue_mantel2.jpg');
+  readableStream.pipe(writableStream);
+
+  readableStream.on('finish', () => {
+    console.log('Finish');
+  });
 }
 
 sharpTest();
