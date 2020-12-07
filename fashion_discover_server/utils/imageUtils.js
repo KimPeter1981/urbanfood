@@ -1,9 +1,16 @@
 const sizeOf = require('image-size');
 const sharp = require('sharp');
-// const probe = require('probe-image-size');
+const {Storage} = require('@google-cloud/storage');
 
-var url = require('url');
-var https = require('https');
+const url = require('url');
+const https = require('https');
+
+const gc = new Storage({
+  keyFilename: './services/fashiondiscovery.json',
+  projectId: 'fashion-discovery'
+});
+
+const fashionDiscoverBucket  = gc.bucket('fashion-discovery');
 
 // var imgUrl = 'https://storage.googleapis.com/fashion-discovery/upload/blue_mantel.jpg';
 
@@ -39,6 +46,37 @@ const convertNormalizedVertices = async (objectDetection, file) => {
   return objectDetection;
 }
 
+// const sharpTest = () => {
+//  const path = 'upload/Baumwollpulover.jpg';
+//  const blobRead = fashionDiscoverBucket.file(path);
+//  var readableStream = blobRead.createReadStream();
+//  var writableStream = fs.createWriteStream('./services/blue_mantel2.jpg');
+//  var blobWrite = fashionDiscoverBucket.file('fashion/Baumwollpulover.jpg');
+//  var writableStream = blobWrite.createWriteStream(); 
+
+//  const extract = sharp().extract({ left: 0, top: 0, width: 100, height: 100 }).jpeg();
+//  readableStream.pipe(extract).pipe(writableStream);
+
+//  readableStream.on('end', () => {
+//    console.log('Finish');
+//  });
+//}
+
+const cutBoundyBox = async (coordinates, uploadFile, output) => {
+  const inputFile = 'upload/' + uploadFile;
+  const blobRead = fashionDiscoverBucket.file(inputFile);
+  const readableStream = blobRead.createReadStream();
+  const outputFile = 'fashion/' + output;
+  const blobWrite = fashionDiscoverBucket.file(outputFile);
+  const writableStream = blobWrite.createWriteStream();
+  const extract = sharp().extract(coordinates).jpeg();
+  readableStream.pipe(extract).pipe(writableStream);
+
+  readableStream.on('end', () => {
+    console.log('Finish');
+  });
+}
+
 const cutPictureParts = async (objectDetection, uploadfile) => {
   // const uploadPath = './static/upload/' + uploadfile;
   const uploadPath = 'gs://fashion-discovery/upload/' + uploadfile;
@@ -56,7 +94,9 @@ const cutPictureParts = async (objectDetection, uploadfile) => {
     let fashionpartfile = object.name + Date.now() +  ".jpg";
     let outputPath = fashionPath + fashionpartfile;
     fashionParts.push(fashionpartfile);
-    await  sharp(uploadPath).extract({ left: object.boundingPoly.vertices[0].x, top: object.boundingPoly.vertices[0].y, width: width, height: height }).toFile(outputPath);
+    // await  sharp(uploadPath).extract({ left: object.boundingPoly.vertices[0].x, top: object.boundingPoly.vertices[0].y, width: width, height: height }).toFile(outputPath);
+    let coord = { left: object.boundingPoly.vertices[0].x, top: object.boundingPoly.vertices[0].y, width: width, height: height }
+    await cutBoundyBox(coord, uploadfile, fashionpartfile);
   });
   return fashionParts;
 }

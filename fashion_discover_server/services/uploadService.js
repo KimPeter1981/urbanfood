@@ -1,5 +1,5 @@
 const {Storage} = require('@google-cloud/storage');
-const sharp = require('sharp');
+// const sharp = require('sharp');
 
 var fs = require('fs');
 
@@ -36,16 +36,22 @@ const uploadImage = async (file, folder) => new Promise((resolve, reject) => {
 })
 
 const sharpTest = () => {
-  var readableStream = fs.createReadStream('blue_mantel.jpg');
-  var writableStream = fs.createWriteStream('blue_mantel2.jpg');
-  readableStream.pipe(writableStream);
+  const path = 'upload/Baumwollpulover.jpg';
+  const blobRead = fashionDiscoverBucket.file(path);
+  var readableStream = blobRead.createReadStream();
+  var writableStream = fs.createWriteStream('./services/blue_mantel2.jpg');
+  var blobWrite = fashionDiscoverBucket.file('fashion/Baumwollpulover.jpg');
+  var writableStream = blobWrite.createWriteStream(); 
 
-  readableStream.on('finish', () => {
+  const extract = sharp().extract({ left: 0, top: 0, width: 100, height: 100 }).jpeg();
+  readableStream.pipe(extract).pipe(writableStream);
+
+  readableStream.on('end', () => {
     console.log('Finish');
   });
 }
 
-sharpTest();
+// sharpTest();
 
 module.exports = {uploadImage}
 
