@@ -5,7 +5,6 @@ const client = new vision.ImageAnnotatorClient({
 });
 
 const getObjects = async (uploadFile) => {
-  // const filename = './static/upload/' + uploadFile.uploadfile;
   const filename = 'gs://fashion-discovery/upload/' + uploadFile.uploadfile;
   const [result] = await client.objectLocalization(filename);
   const objects = result.localizedObjectAnnotations;

@@ -30,7 +30,6 @@ const fashionImageUpload = async (file) => new Promise((resolve, reject) => {
 
 const fashionDiscover = async (file) => {
   try {
-    // let result = await fashionImageUpload(file);
     let result = await uploadService.uploadImage(file, 'upload/')
     let objects = await visionService.getObjects(result);
     let fashionPaths = await imageUtils.cutPictureParts(objects, result.uploadfile); 
