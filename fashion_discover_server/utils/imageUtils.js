@@ -61,16 +61,15 @@ const cutBoundyBox = (coordinates, uploadFile, output) => {
 }
 
 const cutPictureParts = async (objectDetection, uploadfile) => {
-  let objectWithVertices = await convertNormalizedVertices(objectDetection, uploadfile);
-  let i = 0;
+  let objectWithVertices = await convertNormalizedVertices(objectDetection, uploadfile.uploadfile);
   let fashionParts = [];
   objectWithVertices.forEach(async (object) => {
     let width = object.boundingPoly.vertices[1].x - object.boundingPoly.vertices[0].x;
     let height =  object.boundingPoly.vertices[2].y - object.boundingPoly.vertices[0].y;
-    let fashionpartfile = object.name + Date.now() +  ".jpg";
+    let fashionpartfile = uploadfile.uuid + '_' + object.name + '.jpg';
     fashionParts.push(fashionpartfile);
     let coord = { left: object.boundingPoly.vertices[0].x, top: object.boundingPoly.vertices[0].y, width: width, height: height }
-    await cutBoundyBox(coord, uploadfile, fashionpartfile);
+    await cutBoundyBox(coord, uploadfile.uploadfile, fashionpartfile);
   });
   return fashionParts;
 }

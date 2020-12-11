@@ -1,4 +1,5 @@
 const {Storage} = require('@google-cloud/storage');
+const { v4: uuidv4 } = require('uuid');
 
 const gc = new Storage({
     keyFilename: './services/fashiondiscovery.json',
@@ -12,11 +13,14 @@ const uploadImage = async (file, folder) => new Promise((resolve, reject) => {
       reject({message: 'No file to upload!'});
     }
 
+    let uuid = uuidv4();
+
     let files = {
-              uploadfile: file.originalname 
-            }
+                uploadfile: uuid + '_' + file.originalname,
+                uuid: uuid
+            }   
     
-    const path = folder + file.originalname;
+    const path = folder + files.uploadfile;
 
     const blob = fashionDiscoverBucket.file(path);
     const blobStream = blob.createWriteStream();
