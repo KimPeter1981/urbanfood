@@ -6,13 +6,17 @@
     <button mat-raised-button color="primary" (click)="openFile()" *ngIf="(uuid === null) || (uuid === '')">Bild hochladen
         <input type="file" style="display:none" (change)="handle($event.target.files)">
     </button>
-    <hr>
+    <hr *ngIf="fashionDiscoveryResponse !== null">
 </div>
-<div *ngIf="(fashionDiscoveryResponse !== null) && fashionDiscoveryResponse.fashionPaths">
-    <div *ngFor="let part of fashionDiscoveryResponse.fashionPaths">
-        <img [src]="fashionPartFile(part)">
+<div>
+    <div class="preview" *ngIf="(fashionDiscoveryResponse !== null) && (fashionDiscoveryResponse.fashionPaths.length > 1)">
+        <div *ngFor="let part of fashionDiscoveryResponse.fashionPaths" class="pic">
+            <img [src]="fashionPartFile(part)" height="200" width = "150">
+            <p>Bild</p>
+        </div>
     </div>
 </div>
+
 
 
 

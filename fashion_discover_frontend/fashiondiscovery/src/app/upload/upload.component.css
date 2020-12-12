@@ -7,3 +7,13 @@
 button {
     margin-left: 100%;
 }
+
+.preview {
+    width: 100%;
+    display: inline-flex;
+    margin-left:20%;
+}
+
+.pic {
+    margin-left: 10px;
+}
