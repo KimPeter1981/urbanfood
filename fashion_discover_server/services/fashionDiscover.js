@@ -1,6 +1,7 @@
 const visionService = require('./visionService');
 const imageUtils = require('../utils/imageUtils');
 const uploadService = require('./uploadService');
+const database = require('./database/firestoreCrud');
 
 const fashionDiscover = async (file) => {
   try {
@@ -9,6 +10,7 @@ const fashionDiscover = async (file) => {
     let fashionPaths = await imageUtils.cutPictureParts(objects, result); 
     result.objects = objects;
     result.fashionPaths = fashionPaths;
+    await database.saveFashionSet(result);
     return result;
   } catch (e) {
     throw e;
