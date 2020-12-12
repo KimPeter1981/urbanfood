@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from './upload.service';
+import { FashionService } from './fashion.service';
 
 @Component({
   selector: 'app-upload',
@@ -12,9 +13,19 @@ export class UploadComponent implements OnInit {
 
   public fashionDiscoveryResponse: any = null;
 
-  constructor(private uploadService: UploadService) { }
+  public uuid: string = null;
+
+  constructor(private uploadService: UploadService, private fashionService: FashionService) { }
 
   ngOnInit(): void {
+    this.uuid = localStorage.getItem('uuid');
+    if ((this.uuid !== null) && (this.uuid !== '')) {
+      this.fashionService.getFashionItems(this.uuid).subscribe(
+        data => {
+          this.fashionDiscoveryResponse = data;
+        }
+      )
+    }
   }
 
   uploadedFile(uploadfile: string): string {
@@ -34,7 +45,7 @@ export class UploadComponent implements OnInit {
     this.uploadService.fashionDiscover(this.fileToUpload).subscribe(
       data => {
         this.fashionDiscoveryResponse = data;
-        console.log(this.fashionDiscoveryResponse.uploadfile);
+        localStorage.setItem('uuid', this.fashionDiscoveryResponse.uuid);
       }, error => {
         console.log(error);
       }

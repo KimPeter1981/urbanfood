@@ -4,7 +4,9 @@
 
 export const environment = {
 
-  backendUrl: 'http://localhost:3000',
+  backendUrl: 'https://discovery-l4edio2uda-ey.a.run.app',
+  uploadImageUrl: 'https://storage.googleapis.com/fashion-discovery/upload',
+  fasionImageUrl: 'https://storage.googleapis.com/fashion-discovery/fashion',
 
   production: false
 };

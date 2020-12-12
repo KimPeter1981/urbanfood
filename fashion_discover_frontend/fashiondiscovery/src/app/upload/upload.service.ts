@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 export class UploadService {
 
   _backendUrl = `${environment.backendUrl}`;
+  uploadImageUrl = `${environment.uploadImageUrl}`;
+  fashionImageUrl = `${environment.fasionImageUrl}`;
 
   constructor(private http: HttpClient) { }
 
@@ -19,13 +21,13 @@ export class UploadService {
     return this.http.post(endpoint, formData);
   }
 
-  getUploadedFile (filename: string): string {
-    const endpoint = this._backendUrl + '/upload/' + filename;
+  getUploadedFile (file: string): string {
+    const endpoint = this.uploadImageUrl + '/' + file;
     return endpoint;
   }
 
   getFashionPart (filename: string): string {
-    const endpoint = this._backendUrl + '/fashion/' + filename;
+    const endpoint = this.fashionImageUrl + '/' + filename;
     return endpoint;
   }
 

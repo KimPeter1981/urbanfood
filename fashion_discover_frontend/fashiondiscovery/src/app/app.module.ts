@@ -9,6 +9,7 @@ import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './header/header.component';
 import { UploadComponent } from './upload/upload.component';
 import { UploadService } from './upload/upload.service';
+import { FashionService } from './upload/fashion.service'
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -25,7 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [UploadService],
+  providers: [UploadService, FashionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
