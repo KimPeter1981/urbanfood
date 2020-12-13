@@ -52,4 +52,8 @@ export class UploadComponent implements OnInit {
     )
   }
 
+  clear() {
+    localStorage.setItem('uuid', '');
+  }
+
 }

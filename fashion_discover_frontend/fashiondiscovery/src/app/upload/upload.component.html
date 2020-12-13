@@ -9,12 +9,15 @@
     <hr *ngIf="fashionDiscoveryResponse !== null">
 </div>
 <div>
-    <div class="preview" *ngIf="(fashionDiscoveryResponse !== null) && (fashionDiscoveryResponse.fashionPaths.length > 1)">
-        <div *ngFor="let part of fashionDiscoveryResponse.fashionPaths" class="pic">
+    <div class="preview" *ngIf="(fashionDiscoveryResponse !== null) && (fashionDiscoveryResponse.fashionPaths.length > 0)">
+        <div *ngFor="let part of fashionDiscoveryResponse.fashionPaths; let indexOfelement=index;" class="pic">
             <img [src]="fashionPartFile(part)" height="200" width = "150">
-            <p>Bild</p>
+            <p>{{fashionDiscoveryResponse.objects[indexOfelement].name}}</p>
         </div>
     </div>
+</div>
+<div class="fashion_show" *ngIf="(uuid !== null) && (uuid !== '')">
+    <button mat-raised-button color="primary" (click)="clear()">Neues Bild</button>
 </div>
 
 
