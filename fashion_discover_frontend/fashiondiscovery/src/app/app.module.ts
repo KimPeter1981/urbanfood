@@ -9,14 +9,16 @@ import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './header/header.component';
 import { UploadComponent } from './upload/upload.component';
 import { UploadService } from './upload/upload.service';
-import { FashionService } from './upload/fashion.service'
+import { FashionService } from './fashion-display/fashion.service'
 import { HttpClientModule } from '@angular/common/http';
+import { FashionDisplayComponent } from './fashion-display/fashion-display.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    UploadComponent
+    UploadComponent,
+    FashionDisplayComponent
   ],
   imports: [
     BrowserModule,

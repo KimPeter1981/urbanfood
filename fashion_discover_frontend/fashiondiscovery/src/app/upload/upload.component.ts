@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from './upload.service';
-import { FashionService } from './fashion.service';
 
 @Component({
   selector: 'app-upload',
@@ -15,37 +14,41 @@ export class UploadComponent implements OnInit {
 
   public uuid: string = null;
 
-  constructor(private uploadService: UploadService, private fashionService: FashionService) { }
+  public loader: boolean = false;
+
+  constructor(private uploadService: UploadService) { }
 
   ngOnInit(): void {
-    this.uuid = localStorage.getItem('uuid');
-    if ((this.uuid !== null) && (this.uuid !== '')) {
-      this.fashionService.getFashionItems(this.uuid).subscribe(
-        data => {
-          this.fashionDiscoveryResponse = data;
-        }
-      )
-    }
+    // this.uuid = localStorage.getItem('uuid');
+    // if ((this.uuid !== null) && (this.uuid !== '')) {
+    //  this.fashionService.getFashionItems(this.uuid).subscribe(
+    //    data => {
+    //      this.fashionDiscoveryResponse = data;
+    //    }
+    //  )
+    // }
   }
 
-  uploadedFile(uploadfile: string): string {
-    return this.uploadService.getUploadedFile(uploadfile);
-  }
+  // uploadedFile(uploadfile: string): string {
+  //  return this.uploadService.getUploadedFile(uploadfile);
+  //}
 
-  fashionPartFile(uploadedFile: string): string {
-    return this.uploadService.getFashionPart(uploadedFile);
-  }
+  //fashionPartFile(uploadedFile: string): string {
+  //  return this.uploadService.getFashionPart(uploadedFile);
+  //}
 
   openFile(){
     document.querySelector('input').click()
   }
 
   handle(files: FileList){
+    this.loader = true;
     this.fileToUpload = files.item(0);
     this.uploadService.fashionDiscover(this.fileToUpload).subscribe(
       data => {
         this.fashionDiscoveryResponse = data;
         localStorage.setItem('uuid', this.fashionDiscoveryResponse.uuid);
+        this.loader = false;
       }, error => {
         console.log(error);
       }

@@ -1,19 +1,9 @@
 .fashion_show {
     display: inline-block;
     margin-top: 70px;
-    margin-left: 600px;
+    margin-left: 50%;
 }
 
 button {
-    margin-left: 100%;
-}
-
-.preview {
-    width: 100%;
-    display: inline-flex;
-    margin-left:20%;
-}
-
-.pic {
-    margin-left: 10px;
+    margin-top: 50px;
 }

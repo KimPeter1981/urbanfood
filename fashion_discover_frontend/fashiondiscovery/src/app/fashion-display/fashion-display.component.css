@@ -1,0 +1,15 @@
+.fashion_show {
+    display: inline-block;
+    margin-top: 70px;
+    margin-left: 50%;
+}
+
+.preview {
+    width: 100%;
+    display: inline-flex;
+    margin-left:20%;
+}
+
+.pic {
+    margin-left: 10px;
+}

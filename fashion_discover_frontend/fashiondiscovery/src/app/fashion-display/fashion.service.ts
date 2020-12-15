@@ -10,12 +10,24 @@ import { Observable } from 'rxjs';
 export class FashionService {
 
   _backendUrl = `${environment.backendUrl}`;
+  uploadImageUrl = `${environment.uploadImageUrl}`;
+  fashionImageUrl = `${environment.fasionImageUrl}`;
 
   constructor(private http: HttpClient) { }
 
   getFashionItems(uuid: string): Observable<any> {
     const endpoint = this._backendUrl + '/database/fashion?id=' + uuid;
     return this.http.get(endpoint);
+  }
+
+  getUploadedFile (file: string): string {
+    const endpoint = this.uploadImageUrl + '/' + file;
+    return endpoint;
+  }
+
+  getFashionPart (filename: string): string {
+    const endpoint = this.fashionImageUrl + '/' + filename;
+    return endpoint;
   }
 
 }

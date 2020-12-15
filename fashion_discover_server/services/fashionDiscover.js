@@ -11,7 +11,10 @@ const fashionDiscover = async (file) => {
     result.objects = objects;
     result.fashionPaths = fashionPaths;
     await database.saveFashionSet(result);
-    return result;
+    const uuid = {
+      uuid: result.uuid
+    }
+    return uuid;
   } catch (e) {
     throw e;
   }
