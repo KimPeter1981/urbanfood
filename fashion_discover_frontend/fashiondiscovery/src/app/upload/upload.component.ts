@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from './upload.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-upload',
@@ -16,26 +17,9 @@ export class UploadComponent implements OnInit {
 
   public loader: boolean = false;
 
-  constructor(private uploadService: UploadService) { }
+  constructor(private uploadService: UploadService, private router: Router) { }
 
-  ngOnInit(): void {
-    // this.uuid = localStorage.getItem('uuid');
-    // if ((this.uuid !== null) && (this.uuid !== '')) {
-    //  this.fashionService.getFashionItems(this.uuid).subscribe(
-    //    data => {
-    //      this.fashionDiscoveryResponse = data;
-    //    }
-    //  )
-    // }
-  }
-
-  // uploadedFile(uploadfile: string): string {
-  //  return this.uploadService.getUploadedFile(uploadfile);
-  //}
-
-  //fashionPartFile(uploadedFile: string): string {
-  //  return this.uploadService.getFashionPart(uploadedFile);
-  //}
+  ngOnInit(): void {}
 
   openFile(){
     document.querySelector('input').click()
@@ -49,6 +33,7 @@ export class UploadComponent implements OnInit {
         this.fashionDiscoveryResponse = data;
         localStorage.setItem('uuid', this.fashionDiscoveryResponse.uuid);
         this.loader = false;
+        this.router.navigateByUrl('/display');
       }, error => {
         console.log(error);
       }

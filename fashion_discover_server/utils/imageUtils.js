@@ -63,14 +63,16 @@ const cutBoundyBox = (coordinates, uploadFile, output) => {
 const cutPictureParts = async (objectDetection, uploadfile) => {
   let objectWithVertices = await convertNormalizedVertices(objectDetection, uploadfile.uploadfile);
   let fashionParts = [];
-  objectWithVertices.forEach(async (object) => {
-    let width = object.boundingPoly.vertices[1].x - object.boundingPoly.vertices[0].x;
-    let height =  object.boundingPoly.vertices[2].y - object.boundingPoly.vertices[0].y;
-    let fashionpartfile = uploadfile.uuid + '_' + object.name + '.jpg';
+  // objectWithVertices.forEach(async (object) => {
+  for (i=0;i<objectWithVertices.length;i++) {
+    let width = objectWithVertices[i].boundingPoly.vertices[1].x - objectWithVertices[i].boundingPoly.vertices[0].x;
+    let height =  objectWithVertices[i].boundingPoly.vertices[2].y - objectWithVertices[i].boundingPoly.vertices[0].y;
+    let fashionpartfile = uploadfile.uuid + '_' + objectWithVertices[i].name + '.jpg';
     fashionParts.push(fashionpartfile);
-    let coord = { left: object.boundingPoly.vertices[0].x, top: object.boundingPoly.vertices[0].y, width: width, height: height }
+    let coord = { left: objectWithVertices[i].boundingPoly.vertices[0].x, top: objectWithVertices[i].boundingPoly.vertices[0].y, width: width, height: height }
     await cutBoundyBox(coord, uploadfile.uploadfile, fashionpartfile);
-  });
+  }
+  //});
   return fashionParts;
 }
 

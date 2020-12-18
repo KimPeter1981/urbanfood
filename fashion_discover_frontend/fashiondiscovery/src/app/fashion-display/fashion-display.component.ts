@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FashionService } from './fashion.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fashion-display',
@@ -12,7 +13,7 @@ export class FashionDisplayComponent implements OnInit {
 
   public uuid: string = null;
 
-  constructor(private fashionService: FashionService) { }
+  constructor(private fashionService: FashionService, private router: Router) { }
 
   ngOnInit(): void {
     this.uuid = localStorage.getItem('uuid');
@@ -31,6 +32,11 @@ export class FashionDisplayComponent implements OnInit {
 
   fashionPartFile(uploadedFile: string): string {
     return this.fashionService.getFashionPart(uploadedFile);
+  }
+
+  goBack() {
+    localStorage.setItem('uuid','');
+    this.router.navigateByUrl('/');
   }
 
 }

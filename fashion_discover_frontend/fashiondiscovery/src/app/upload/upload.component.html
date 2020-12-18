@@ -1,24 +1,10 @@
 <div class="fashion_show">
-    <!--<div *ngIf="fashionDiscoveryResponse !== null">
-        <img [src]="uploadedFile(fashionDiscoveryResponse.uploadfile)">
-    </div>-->
     <span *ngIf="loader"><mat-spinner></mat-spinner></span>
     <button mat-raised-button color="primary" (click)="openFile()" [disabled]="loader">Bild hochladen
         <input type="file" style="display:none" (change)="handle($event.target.files)">
     </button>
-    <!--<hr *ngIf="fashionDiscoveryResponse !== null">-->
 </div>
-<!--<div>
-    <div class="preview" *ngIf="(fashionDiscoveryResponse !== null) && (fashionDiscoveryResponse.fashionPaths.length > 0)">
-        <div *ngFor="let part of fashionDiscoveryResponse.fashionPaths; let indexOfelement=index;" class="pic">
-            <img [src]="fashionPartFile(part)" height="200" width = "150">
-            <p>{{fashionDiscoveryResponse.objects[indexOfelement].name}}</p>
-        </div>
-    </div>
-</div>-->
-<!--<div class="fashion_show" *ngIf="(uuid !== null) && (uuid !== '')">
-    <button mat-raised-button color="primary" (click)="clear()">Neues Bild</button>
-</div>-->
+
 
 
 
