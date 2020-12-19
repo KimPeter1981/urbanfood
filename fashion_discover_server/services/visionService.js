@@ -1,6 +1,6 @@
-const vision = require('@google-cloud/vision');
+const vision = require('@google-cloud/vision'); 
 
-var excludeObjects = ['Person'];
+var excludeObjects = ['Person','Window'];
 
 const client = new vision.ImageAnnotatorClient({
     keyFilename: './services/fashiondiscovery.json'

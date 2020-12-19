@@ -26,4 +26,34 @@ const saveFashionSet = async (fashionset) => {
     await fashionMetaRef.doc(fashionset.uuid).set(fashionset);
 }
 
-module.exports = {getAll, getDocument, saveFashionSet}
+const fashionSetPreview = async (id) => {
+  const fashionMetaRef = await db.collection('fashion_metadata').doc(id);
+  const snapshot =  await fashionMetaRef.get();
+  let snapshotData = snapshot.data();
+
+  let fashionParts = [];
+
+  let uniquePart = [];
+
+  for (i=0;i < snapshotData.objects.length; i++) {
+    if (!uniquePart.includes(snapshotData.objects[i].name)) {
+      let part = {
+        name: snapshotData.objects[i].name,
+        file: snapshotData.objects[i].fashionPart
+      }
+      fashionParts.push(part);
+      uniquePart.push(part.name);
+    }
+  }
+
+  let result = {
+    uuid: snapshotData.uuid,
+    uploadfile: snapshotData.uploadfile,
+    fashionParts: fashionParts
+  }
+
+  return result;
+
+}
+
+module.exports = {getAll, getDocument, saveFashionSet, fashionSetPreview}

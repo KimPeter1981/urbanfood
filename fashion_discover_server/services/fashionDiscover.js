@@ -7,10 +7,8 @@ const fashionDiscover = async (file) => {
   try {
     let result = await uploadService.uploadImage(file, 'upload/')
     let objects = await visionService.getObjects(result);
-    console.log(objects);
-    let fashionPaths = await imageUtils.cutPictureParts(objects, result); 
+    await imageUtils.cutPictureParts(objects, result); 
     result.objects = objects;
-    result.fashionPaths = fashionPaths;
     await database.saveFashionSet(result);
     const uuid = {
       uuid: result.uuid

@@ -5,10 +5,10 @@
     <hr>
 </div>
 <div>
-    <div class="preview" *ngIf="(fashionDiscoveryResponse !== null) && (fashionDiscoveryResponse.fashionPaths.length > 0)">
-        <div *ngFor="let part of fashionDiscoveryResponse.fashionPaths; let indexOfelement=index;" class="pic">
-            <img [src]="fashionPartFile(part)" height="200" width = "150">
-            <p>{{fashionDiscoveryResponse.objects[indexOfelement].name}}</p>
+    <div class="preview" *ngIf="(fashionDiscoveryResponse !== null) && (fashionDiscoveryResponse.fashionParts.length > 0)">
+        <div *ngFor="let part of fashionDiscoveryResponse.fashionParts; let indexOfelement=index;" class="pic">
+            <img [src]="fashionPartFile(part.file)" height="200" width = "150">
+            <p>{{part.name}}</p>
         </div>
     </div>
 </div>

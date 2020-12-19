@@ -16,7 +16,7 @@ export class FashionService {
   constructor(private http: HttpClient) { }
 
   getFashionItems(uuid: string): Observable<any> {
-    const endpoint = this._backendUrl + '/database/fashion?id=' + uuid;
+    const endpoint = this._backendUrl + '/database/fashionSetPreview?id=' + uuid;
     return this.http.get(endpoint);
   }
 

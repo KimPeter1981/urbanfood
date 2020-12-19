@@ -21,4 +21,15 @@ router.get('/fashion', async (req, res) => {
     res.status(200).send(result);
 })
 
+router.get('/fashionSetPreview', async (req, res) => {
+    const uuid = req.query.id;
+
+    if (!uuid) {
+        res.status(400).send({message: 'UUID must be specified!'});
+    }
+
+    const result = await database.fashionSetPreview(uuid);
+    res.status(200).send(result);
+})
+
 module.exports = router;
