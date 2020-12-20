@@ -56,4 +56,23 @@ const fashionSetPreview = async (id) => {
 
 }
 
-module.exports = {getAll, getDocument, saveFashionSet, fashionSetPreview}
+const fashionMetaData = async (id , part) => {
+  const fashionMetaRef = await db.collection('fashion_metadata').doc(id);
+  const snapshot =  await fashionMetaRef.get();
+  let snapshotData = snapshot.data();
+  let filteredSnapshot = snapshotData.objects.filter((obj) => obj.name === part);
+  if (filteredSnapshot.length > 0) {
+    return filteredSnapshot[0];
+  } else {
+    return []
+  }
+}
+
+// const test = async () => {
+//  const result = await fashionMetaData('0d2bc987-3562-4582-b4ae-a9e63397647d','Shoe');
+//  console.log(result);
+//}
+
+//test();
+
+module.exports = {getAll, getDocument, saveFashionSet, fashionSetPreview, fashionMetaData}
