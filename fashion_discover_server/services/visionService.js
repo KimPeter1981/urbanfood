@@ -16,10 +16,23 @@ const getObjects = async (uploadFile) => {
   return objectsFiltered;
 }
 
-const getObjectDetails = async (id, part) => {
-  const details = await database.fashionMetaData(id, part);
-  const filename = 'gs://fashion-discovery/fashion/' + details.fashionFiles[0];
-  console.log(filename);
+const extractFashionPiece = (clothes, piece) => {
+  let filteredSnapshot = clothes.fashionSet.filter((obj) => obj.name === piece);
+  return filteredSnapshot;
+}
+
+const addFashionDetails = async (fashionInfo, part, details) => {
+  let fashionSet = fashionInfo.fashionSet;
+  let index = fashionSet.findIndex((fashion) => fashion.name === part)
+  fashionSetExtended = {...fashionSet[index], ...details}
+  fashionInfo.fashionSet[index] = fashionSetExtended
+  database.save(fashionInfo);
+}
+
+const getObjectDetails = async (id, piece) => {
+  const clothes = await database.fashionSetPreview(id);
+  const details = extractFashionPiece(clothes, piece);
+  const filename = 'gs://fashion-discovery/fashion/' + details[0].fashionFiles[0];
   const [labelDetect] = await client.labelDetection(filename);
   const labels = labelDetect.labelAnnotations;
   const [logoDetect] = await client.logoDetection(filename);
@@ -40,6 +53,9 @@ const getObjectDetails = async (id, part) => {
   for (i=0;i<text.length;i++) {
     completeResult.text.push(text[i].description);
   }
+
+  addFashionDetails(clothes, piece, completeResult);
+
   return completeResult;
 }
 

@@ -56,6 +56,11 @@ const saveFashionSet = async (fashionset) => {
     await fashionMetaRef.doc(fashionset.uuid).set(reducedFashionSet);
 }
 
+const save = async (fashion) => {
+  const fashionMetaRef = await db.collection('fashion_metadata');
+  await fashionMetaRef.doc(fashion.uuid).set(fashion);
+}
+
 const fashionSetPreview = async (id) => {
   const fashionMetaRef = await db.collection('fashion_metadata').doc(id);
   const snapshot =  await fashionMetaRef.get();
@@ -75,4 +80,4 @@ const fashionMetaData = async (id , part) => {
   }
 }
 
-module.exports = {getAll, getDocument, saveFashionSet, fashionSetPreview, fashionMetaData}
+module.exports = {getAll, getDocument, saveFashionSet, fashionSetPreview, fashionMetaData, save}
