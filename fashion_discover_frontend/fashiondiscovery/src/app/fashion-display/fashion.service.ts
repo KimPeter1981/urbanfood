@@ -25,8 +25,8 @@ export class FashionService {
     return endpoint;
   }
 
-  getFashionPart (filename: string): string {
-    const endpoint = this.fashionImageUrl + '/' + filename;
+  getFashionPart (filename: string, name: string): string {
+    const endpoint = this.fashionImageUrl + '/' + name + '/' + filename;
     return endpoint;
   }
 

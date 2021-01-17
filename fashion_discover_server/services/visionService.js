@@ -8,12 +8,29 @@ const client = new vision.ImageAnnotatorClient({
     keyFilename: './services/fashiondiscovery.json'
 });
 
-const getObjects = async (uploadFile) => {
+const extractFashionObjectsAndLabels = async (file) => {
+  const request = {
+    image: {source: {imageUri: file}},
+    features: [{type: 'LABEL_DETECTION', maxResults: 20},
+              {type: 'OBJECT_LOCALIZATION', maxResults: 10}],
+  };
+  const fashionExtract = await client.annotateImage(request);
+  return fashionExtract;
+}
+
+const getObjectsAndLabel = async (uploadFile) => {
   const filename = 'gs://fashion-discovery/upload/' + uploadFile.uploadfile;
-  const [result] = await client.objectLocalization(filename);
-  const objects = result.localizedObjectAnnotations;
+  // const [result] = await client.objectLocalization(filename);
+  const extracts = await extractFashionObjectsAndLabels(filename);
+  const objects = extracts[0].localizedObjectAnnotations;
+  const labels = extracts[0].labelAnnotations;
+  // console.log(labels);
   let objectsFiltered = objects.filter((object) => !excludeObjects.includes(object.name));
-  return objectsFiltered;
+  let objectAndLabels = {
+    objects: objectsFiltered,
+    labels: labels
+  }
+  return objectAndLabels;
 }
 
 const extractFashionPiece = (clothes, piece) => {
@@ -48,14 +65,8 @@ const extractFashionDetails = async (file) => {
 const getObjectDetails = async (id, piece) => {
   const clothes = await database.fashionSetPreview(id);
   const details = extractFashionPiece(clothes, piece);
-  const filename = 'gs://fashion-discovery/fashion/' + details[0].fashionFiles[0];
+  const filename = 'gs://fashion-discovery/fashion/' + piece + '/' + details[0].fashionFiles[0];
   const fash_details = await extractFashionDetails(filename);
-  // const [labelDetect] = await client.labelDetection(filename);
-  // const labels = labelDetect.labelAnnotations;
-  // const [logoDetect] = await client.logoDetection(filename);
-  // const logos = logoDetect.logoAnnotations;
-  // const [textDetect] = await client.textDetection(filename);
-  // const text = textDetect.textAnnotations;
   const completeResult = {
     labels: [],
     logos: [],
@@ -76,4 +87,4 @@ const getObjectDetails = async (id, piece) => {
   return completeResult;
 }
 
-module.exports = {getObjects, getObjectDetails} 
+module.exports = {getObjectsAndLabel, getObjectDetails} 

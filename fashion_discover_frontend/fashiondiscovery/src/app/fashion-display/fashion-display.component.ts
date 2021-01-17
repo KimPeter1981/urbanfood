@@ -30,8 +30,8 @@ export class FashionDisplayComponent implements OnInit {
     return this.fashionService.getUploadedFile(uploadfile);
   }
 
-  fashionPartFile(uploadedFile: string): string {
-    return this.fashionService.getFashionPart(uploadedFile);
+  fashionPartFile(uploadedFile: string, name: string): string {
+    return this.fashionService.getFashionPart(uploadedFile, name);
   }
 
   goBack() {

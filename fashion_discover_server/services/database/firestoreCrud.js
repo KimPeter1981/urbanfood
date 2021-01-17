@@ -41,10 +41,17 @@ const reduce = (imgextract) => {
       fashionSet.push({name: key, fashionFiles: map.get(key)})
   }
 
+  let labels = []
+
+  imgextract.labels.forEach(element => {
+    labels.push(element.description)
+  })  
+
   let fashionObj = {
       uploadfile: imgextract.uploadfile,
       uuid: imgextract.uuid,
-      fashionSet: fashionSet
+      fashionSet: fashionSet,
+      labels: labels
   }
 
   return fashionObj;

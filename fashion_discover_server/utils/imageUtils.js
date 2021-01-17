@@ -42,12 +42,12 @@ const convertNormalizedVertices = async (objectDetection, file) => {
 }
 
 
-const cutBoundyBox = (coordinates, uploadFile, output) => {
+const cutBoundyBox = (coordinates, uploadFile, output, name) => {
   return new Promise((resolve, reject) => {
     const inputFile = 'upload/' + uploadFile;
     const blobRead = fashionDiscoverBucket.file(inputFile);
     const readableStream = blobRead.createReadStream();
-    const outputFile = 'fashion/' + output;
+    const outputFile = 'fashion/' + name + '/' + output;
     const blobWrite = fashionDiscoverBucket.file(outputFile);
     const writableStream = blobWrite.createWriteStream();
     const extract = sharp().extract(coordinates).jpeg();
@@ -68,7 +68,7 @@ const cutPictureParts = async (objectDetection, uploadfile) => {
     let fashionpartfile = uploadfile.uuid + '_' + objectWithVertices[i].name + '_' + i + '.jpg';
     objectDetection[i].fashionPart = fashionpartfile;
     let coord = { left: objectWithVertices[i].boundingPoly.vertices[0].x, top: objectWithVertices[i].boundingPoly.vertices[0].y, width: width, height: height }
-    await cutBoundyBox(coord, uploadfile.uploadfile, fashionpartfile);
+    await cutBoundyBox(coord, uploadfile.uploadfile, fashionpartfile, objectWithVertices[i].name);
   }
 }
 

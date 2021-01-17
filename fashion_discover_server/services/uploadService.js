@@ -16,7 +16,7 @@ const uploadImage = async (file, folder) => new Promise((resolve, reject) => {
     let uuid = uuidv4();
 
     let files = {
-                uploadfile: uuid + '_' + file.originalname,
+                uploadfile: uuid + '.jpg',
                 uuid: uuid
             }   
     
