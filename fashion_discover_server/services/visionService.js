@@ -29,29 +29,46 @@ const addFashionDetails = async (fashionInfo, part, details) => {
   database.save(fashionInfo);
 }
 
+const extractFashionDetails = async (file) => {
+  const request = {
+    image: {source: {imageUri: file}},
+    features: [{type: 'LABEL_DETECTION', maxResults: 20},
+              {type: 'LOGO_DETECTION', maxResults: 1},
+              {type: 'DOCUMENT_TEXT_DETECTION', maxResults: 1}],
+  };
+  const fashionDetails = await client.annotateImage(request);
+  const extracts = {
+    labels: fashionDetails[0].labelAnnotations,
+    logos: fashionDetails[0].logoAnnotations,
+    text: fashionDetails[0].textAnnotations
+  }
+  return extracts;
+}
+
 const getObjectDetails = async (id, piece) => {
   const clothes = await database.fashionSetPreview(id);
   const details = extractFashionPiece(clothes, piece);
   const filename = 'gs://fashion-discovery/fashion/' + details[0].fashionFiles[0];
-  const [labelDetect] = await client.labelDetection(filename);
-  const labels = labelDetect.labelAnnotations;
-  const [logoDetect] = await client.logoDetection(filename);
-  const logos = logoDetect.logoAnnotations;
-  const [textDetect] = await client.textDetection(filename);
-  const text = textDetect.textAnnotations;
+  const fash_details = await extractFashionDetails(filename);
+  // const [labelDetect] = await client.labelDetection(filename);
+  // const labels = labelDetect.labelAnnotations;
+  // const [logoDetect] = await client.logoDetection(filename);
+  // const logos = logoDetect.logoAnnotations;
+  // const [textDetect] = await client.textDetection(filename);
+  // const text = textDetect.textAnnotations;
   const completeResult = {
     labels: [],
     logos: [],
     text: []
   }
-  for (i=0;i<labels.length;i++) {
-    completeResult.labels.push(labels[i].description);
+  for (i=0;i<fash_details.labels.length;i++) {
+    completeResult.labels.push(fash_details.labels[i].description);
   }
-  for (i=0;i<logos.length;i++) {
-    completeResult.logos.push(logos[i].description);
+  for (i=0;i<fash_details.logos.length;i++) {
+    completeResult.logos.push(fash_details.logos[i].description);
   }
-  for (i=0;i<text.length;i++) {
-    completeResult.text.push(text[i].description);
+  for (i=0;i<fash_details.text.length;i++) {
+    completeResult.text.push(fash_details.text[i].description);
   }
 
   addFashionDetails(clothes, piece, completeResult);
