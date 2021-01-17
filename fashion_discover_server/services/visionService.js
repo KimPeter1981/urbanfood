@@ -18,7 +18,7 @@ const getObjects = async (uploadFile) => {
 
 const getObjectDetails = async (id, part) => {
   const details = await database.fashionMetaData(id, part);
-  const filename = 'gs://fashion-discovery/fashion/' + details.fashionPart;
+  const filename = 'gs://fashion-discovery/fashion/' + details.fashionFiles[0];
   console.log(filename);
   const [labelDetect] = await client.labelDetection(filename);
   const labels = labelDetect.labelAnnotations;
@@ -26,9 +26,6 @@ const getObjectDetails = async (id, part) => {
   const logos = logoDetect.logoAnnotations;
   const [textDetect] = await client.textDetection(filename);
   const text = textDetect.textAnnotations;
-  // console.log(labels);
-  // console.log(logos);
-  // console.log(text);
   const completeResult = {
     labels: [],
     logos: [],
@@ -45,11 +42,5 @@ const getObjectDetails = async (id, part) => {
   }
   return completeResult;
 }
-
-// const test = async () => {
-//  await getObjectDetails('0d2bc987-3562-4582-b4ae-a9e63397647d','Shoe');
-//}
-
-//test();
 
 module.exports = {getObjects, getObjectDetails} 
