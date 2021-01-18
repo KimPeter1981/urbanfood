@@ -39,7 +39,7 @@ router.post('/discovery', multerMid.single('file'), async (req, res, next) => {
     res.status(400).send({message: 'part must be specified!'});
   }
 
-  const result = await visionService. getObjectDetails(id, part);
+  const result = await visionService.getObjectDetails(id, part);
   res.status(200).send(result);
  
  })

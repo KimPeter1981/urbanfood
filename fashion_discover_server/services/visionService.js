@@ -65,24 +65,33 @@ const extractFashionDetails = async (file) => {
 const getObjectDetails = async (id, piece) => {
   const clothes = await database.fashionSetPreview(id);
   const details = extractFashionPiece(clothes, piece);
-  const filename = 'gs://fashion-discovery/fashion/' + piece + '/' + details[0].fashionFiles[0];
-  const fash_details = await extractFashionDetails(filename);
-  const completeResult = {
+
+  let completeResult = {
     labels: [],
     logos: [],
     text: []
   }
-  for (i=0;i<fash_details.labels.length;i++) {
-    completeResult.labels.push(fash_details.labels[i].description);
-  }
-  for (i=0;i<fash_details.logos.length;i++) {
-    completeResult.logos.push(fash_details.logos[i].description);
-  }
-  for (i=0;i<fash_details.text.length;i++) {
-    completeResult.text.push(fash_details.text[i].description);
-  }
 
-  addFashionDetails(clothes, piece, completeResult);
+  if (!details[0].labels) {
+    console.log('--Determine Details from API--');
+    const filename = 'gs://fashion-discovery/fashion/' + piece + '/' + details[0].fashionFiles[0];
+    const fash_details = await extractFashionDetails(filename);
+    for (i=0;i<fash_details.labels.length;i++) {
+      completeResult.labels.push(fash_details.labels[i].description);
+    }
+    for (i=0;i<fash_details.logos.length;i++) {
+      completeResult.logos.push(fash_details.logos[i].description);
+    }
+    for (i=0;i<fash_details.text.length;i++) {
+      completeResult.text.push(fash_details.text[i].description);
+    }
+    addFashionDetails(clothes, piece, completeResult);
+  } else {
+    console.log('--Determine details from Database---');
+    completeResult.labels = details[0].labels;
+    completeResult.logos = details[0].logos;
+    completeResult.text = details[0].text
+  }
 
   return completeResult;
 }

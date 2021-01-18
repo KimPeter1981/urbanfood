@@ -12,13 +12,15 @@ import { UploadService } from './upload/upload.service';
 import { FashionService } from './fashion-display/fashion.service'
 import { HttpClientModule } from '@angular/common/http';
 import { FashionDisplayComponent } from './fashion-display/fashion-display.component';
+import { FashionDetailsComponent } from './fashion-details/fashion-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     UploadComponent,
-    FashionDisplayComponent
+    FashionDisplayComponent,
+    FashionDetailsComponent
   ],
   imports: [
     BrowserModule,
