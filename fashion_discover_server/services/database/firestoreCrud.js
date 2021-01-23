@@ -75,8 +75,10 @@ const fashionSetPreview = async (id) => {
   return snapshotData;
 }
 
-let excludes = ['Art','Insect','Soil','Lip','Hairstyle','Photograph','Eyelash','Neck', 'Electric blue', 'Rectangle', 
-                'Natural material', 'Joint', 'Outerwear', 'Shoulder', 'Fashion', 'Textile','Waist', 'Thigh']
+let excludes = ['Art','Insect','Soil','Lip','Hairstyle','Photograph','Eyelash','Neck', 'Electric blue', 'Rectangle','Vision care',
+                'Natural material', 'Joint', 'Outerwear', 'Shoulder', 'Fashion', 'Textile','Waist', 'Thigh','Arm','Gesture','Style',
+                'Finger','Model','Street fashion','Knee','Standing','Product','Holding hands','Peach','Ivory','Wrist','Elbow','Finger',
+                'Photo shoot','Fashion design','Fashion model','Foot','Beauty','Snapshot']
 
 const excludeInfos = (labels) => {
   let includes = [];
@@ -104,6 +106,7 @@ const getFashionPart = (fashion, part) => {
 const getFashionPiece = async (id, piece) => {
   let fashion = await fashionSetPreview(id);
   let fashionPiece = getFashionPart(fashion, piece);
+  fashionPiece[0].uploadfile = fashion.uploadfile;
   return fashionPiece;
 }
 

@@ -12,10 +12,12 @@ import {environment} from '../../environments/environment';
 export class FashionDetailsComponent implements OnInit {
 
   fashionImageUrl = `${environment.fasionImageUrl}`;
+  uploadImageUrl = `${environment.uploadImageUrl}`
 
   uuid: string = null;
   piece: string = null;
   fashionPiece: any = null;
+  description: string = null;
 
   constructor(private route: ActivatedRoute, private fashionDetailsService: FashionDetailsService) { }
 
@@ -37,6 +39,10 @@ export class FashionDetailsComponent implements OnInit {
 
   getFashionPiecePath(filename) {
     return this.fashionImageUrl + '/' + this.piece + '/' + filename
+  }
+
+  getFashionUpload() {
+    return this.uploadImageUrl + '/' + this.fashionPiece[0].uploadfile
   }
 
 }

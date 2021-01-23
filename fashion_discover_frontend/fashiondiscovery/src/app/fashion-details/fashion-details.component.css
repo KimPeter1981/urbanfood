@@ -13,6 +13,17 @@
 .fashion_infos {
     margin-left: 20px;
     margin-top: 20px;
-    width: 70%;
+    width: 30%;
     height: 100%;
+}
+
+.fashion_upload {
+    margin-top: 20px;
+    width: 30%;
+    height: 100%;
+}
+
+.fashion_upload img {
+    width: 270px;
+    height: 470px;
 }

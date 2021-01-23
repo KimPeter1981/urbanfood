@@ -11,5 +11,11 @@
             <li *ngFor="let text of fashionPiece[0].text">{{text}}</li>
             <li *ngFor="let logo of fashionPiece[0].logos">{{logo}}</li>
         </ul>
+        <h1>Beschreibung:</h1>
+        <textarea cols="50" rows="10" [(ngModel)]="description"></textarea><br>
+        <button mat-raised-button color="primary">Zurück</button>
+    </div>
+    <div class="fashion_upload" *ngIf="fashionPiece[0]">
+        <img [src]="getFashionUpload()">
     </div>
 </div>
