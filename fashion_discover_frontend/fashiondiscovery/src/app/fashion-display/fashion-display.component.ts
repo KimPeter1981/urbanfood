@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FashionService } from './fashion.service';
 import { Router } from '@angular/router';
+import { ObjectUnsubscribedError } from 'rxjs';
+import { Identifiers } from '@angular/compiler';
 
 @Component({
   selector: 'app-fashion-display',
@@ -37,6 +39,15 @@ export class FashionDisplayComponent implements OnInit {
   goBack() {
     localStorage.setItem('uuid','');
     this.router.navigateByUrl('/');
+  }
+
+  goToDetails(uuid: string,piece: string) {
+    this.fashionService.getFashionDetails(uuid, piece).subscribe(
+        data => {
+          let url = '/details/' + uuid + '/' + piece;
+          this.router.navigateByUrl(url)
+        }
+    )
   }
 
 }

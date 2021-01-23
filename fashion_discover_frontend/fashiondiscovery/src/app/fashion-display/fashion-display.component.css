@@ -13,3 +13,7 @@
 .pic {
     margin-left: 10px;
 }
+
+img {
+    cursor: pointer;
+}

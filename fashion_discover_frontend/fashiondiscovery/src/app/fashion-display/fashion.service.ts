@@ -30,4 +30,9 @@ export class FashionService {
     return endpoint;
   }
 
+  getFashionDetails (uuid: string, piece: string) {
+    const url = this._backendUrl + '/fashion/details?id=' + uuid + '&part=' + piece;
+    return this.http.get(url);  
+  }
+
 }

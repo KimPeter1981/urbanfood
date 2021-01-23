@@ -7,7 +7,7 @@
 <div>
     <div class="preview" *ngIf="(fashionDiscoveryResponse !== null) && (fashionDiscoveryResponse.fashionSet.length > 0)">
         <div *ngFor="let part of fashionDiscoveryResponse.fashionSet; let indexOfelement=index;" class="pic">
-            <img [src]="fashionPartFile(part.fashionFiles[0], part.name)" height="200" width = "150">
+            <img [src]="fashionPartFile(part.fashionFiles[0], part.name)" height="200" width = "150" (click)="goToDetails(fashionDiscoveryResponse.uuid,part.name)">
             <p>{{part.name}}</p>
         </div>
     </div>

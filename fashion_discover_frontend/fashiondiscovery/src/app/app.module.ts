@@ -10,6 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { UploadComponent } from './upload/upload.component';
 import { UploadService } from './upload/upload.service';
 import { FashionService } from './fashion-display/fashion.service'
+import { FashionDetailsService } from './fashion-details/fashion-details.service'
 import { HttpClientModule } from '@angular/common/http';
 import { FashionDisplayComponent } from './fashion-display/fashion-display.component';
 import { FashionDetailsComponent } from './fashion-details/fashion-details.component';
@@ -30,7 +31,7 @@ import { FashionDetailsComponent } from './fashion-details/fashion-details.compo
     FormsModule,
     HttpClientModule
   ],
-  providers: [UploadService, FashionService],
+  providers: [UploadService, FashionService, FashionDetailsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

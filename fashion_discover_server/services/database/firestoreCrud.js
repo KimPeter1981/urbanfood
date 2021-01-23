@@ -75,6 +75,38 @@ const fashionSetPreview = async (id) => {
   return snapshotData;
 }
 
+let excludes = ['Art','Insect','Soil','Lip','Hairstyle','Photograph','Eyelash','Neck', 'Electric blue', 'Rectangle', 
+                'Natural material', 'Joint', 'Outerwear', 'Shoulder', 'Fashion', 'Textile','Waist', 'Thigh']
+
+const excludeInfos = (labels) => {
+  let includes = [];
+  labels.forEach(label => {
+    if (excludes.findIndex(exclude => exclude === label) === -1) {
+      includes.push(label)
+    }
+  });
+  return includes;
+}
+
+const mergeLabels = (fashion, piece) => {
+  piece[0].labels = piece[0].labels.concat(fashion.labels)
+  piece[0].labels = Array.from(new Set(piece[0].labels))
+  piece[0].labels = excludeInfos(piece[0].labels);
+  return piece;
+}
+
+const getFashionPart = (fashion, part) => {
+  let piece = fashion.fashionSet.filter(p => p.name === part);
+  piece = mergeLabels(fashion, piece);
+  return piece;
+}
+
+const getFashionPiece = async (id, piece) => {
+  let fashion = await fashionSetPreview(id);
+  let fashionPiece = getFashionPart(fashion, piece);
+  return fashionPiece;
+}
+
 const fashionMetaData = async (id , part) => {
   const fashionMetaRef = await db.collection('fashion_metadata').doc(id);
   const snapshot =  await fashionMetaRef.get();
@@ -87,4 +119,4 @@ const fashionMetaData = async (id , part) => {
   }
 }
 
-module.exports = {getAll, getDocument, saveFashionSet, fashionSetPreview, fashionMetaData, save}
+module.exports = {getAll, getDocument, saveFashionSet, fashionSetPreview, fashionMetaData, save, getFashionPiece}
