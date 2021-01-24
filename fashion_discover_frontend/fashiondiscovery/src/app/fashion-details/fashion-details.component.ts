@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FashionDetailsService } from './fashion-details.service'
 import {environment} from '../../environments/environment';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -17,9 +18,11 @@ export class FashionDetailsComponent implements OnInit {
   uuid: string = null;
   piece: string = null;
   fashionPiece: any = null;
-  description: string = null;
+  description: string = '';
 
-  constructor(private route: ActivatedRoute, private fashionDetailsService: FashionDetailsService) { }
+  constructor(private route: ActivatedRoute, 
+              private fashionDetailsService: FashionDetailsService,
+              private router: Router) { }
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
@@ -32,7 +35,9 @@ export class FashionDetailsComponent implements OnInit {
     this.fashionDetailsService.getFashionPiece(this.uuid, this.piece).subscribe(
       data => {
         this.fashionPiece = data;
-        console.log(this.fashionPiece);
+        if (this.fashionPiece[0].description) {
+          this.description = this.fashionPiece[0].description;
+        }
       }
     )
   }
@@ -43,6 +48,14 @@ export class FashionDetailsComponent implements OnInit {
 
   getFashionUpload() {
     return this.uploadImageUrl + '/' + this.fashionPiece[0].uploadfile
+  }
+
+  gotoDisplay() {
+    this.fashionDetailsService.saveDescription(this.uuid, this.piece, this.description).subscribe(
+      data => {
+        this.router.navigateByUrl('/display');
+      }
+    )
   }
 
 }

@@ -13,9 +13,9 @@
         </ul>
         <h1>Beschreibung:</h1>
         <textarea cols="50" rows="10" [(ngModel)]="description"></textarea><br>
-        <button mat-raised-button color="primary">Zurück</button>
+        <button mat-raised-button color="primary" (click)="gotoDisplay()">Zurück</button>
     </div>
-    <div class="fashion_upload" *ngIf="fashionPiece[0]">
+    <div class="fashion_upload">
         <img [src]="getFashionUpload()">
     </div>
 </div>

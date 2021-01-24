@@ -78,7 +78,9 @@ const fashionSetPreview = async (id) => {
 let excludes = ['Art','Insect','Soil','Lip','Hairstyle','Photograph','Eyelash','Neck', 'Electric blue', 'Rectangle','Vision care',
                 'Natural material', 'Joint', 'Outerwear', 'Shoulder', 'Fashion', 'Textile','Waist', 'Thigh','Arm','Gesture','Style',
                 'Finger','Model','Street fashion','Knee','Standing','Product','Holding hands','Peach','Ivory','Wrist','Elbow','Finger',
-                'Photo shoot','Fashion design','Fashion model','Foot','Beauty','Snapshot']
+                'Photo shoot','Fashion design','Fashion model','Foot','Beauty','Snapshot','Room','Monochrome photography','Human leg',
+                'Eyewear','Chest','Black hair','Hair','Flash photography','Long hair','Floor','Asphalt','Road surface','Flooring','Leg',
+                'Mouth']
 
 const excludeInfos = (labels) => {
   let includes = [];
@@ -122,4 +124,17 @@ const fashionMetaData = async (id , part) => {
   }
 }
 
-module.exports = {getAll, getDocument, saveFashionSet, fashionSetPreview, fashionMetaData, save, getFashionPiece}
+const obj = {
+  uuid: '54067daf-c627-4230-a152-8bebc4572584',
+  piece: 'Bag',
+  description: 'Das ist eine schöne Tasche!!'
+}
+
+const addDescription = async (obj) => {
+  let fashion = await fashionSetPreview(obj.uuid);
+  indexPiece = fashion.fashionSet.findIndex((p) => p.name === obj.piece);
+  fashion.fashionSet[indexPiece].description = obj.description;
+  save(fashion);
+}
+
+module.exports = {getAll, getDocument, saveFashionSet, fashionSetPreview, fashionMetaData, save, getFashionPiece, addDescription}

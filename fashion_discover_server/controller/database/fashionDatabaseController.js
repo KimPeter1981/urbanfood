@@ -64,4 +64,23 @@ router.get('/fashionpiece', async (req, res) => {
     res.status(200).send(result);
 })
 
+router.put('/description', async (req, res) => {
+    const obj = req.body;
+    if (!obj.uuid) {
+        res.status(400).send({message: 'UUID must be specified!'});
+    }
+
+    if (!obj.piece) {
+        res.status(400).send({message: 'Piece must be specified!'});
+    }
+
+    if (!obj.description) {
+        res.status(400).send({message: 'Description must be specified!'});
+    }
+    
+    const result = await database.addDescription(obj);
+
+    res.status(200).send(obj);
+})
+
 module.exports = router;

@@ -16,4 +16,14 @@ export class FashionDetailsService {
     return this.http.get(url);
   }
 
+  saveDescription(uuid: string, piece: string, text: string) {
+    const url = this._backendUrl + '/database/description';
+    let obj = {
+      uuid: uuid,
+      piece: piece,
+      description: text
+    }
+    return this.http.put(url, obj);
+  }
+
 }
