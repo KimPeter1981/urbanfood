@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fashion-discovery",
+  "private_key_id": "25d3451267a77acd0d0f9bd56e46a440c7ab2399",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC8xPBU5/M1O0bE\nHqbboNhUa1fKnRXlBP3/DF4UhFrCwgBevDbnZVQdDZqLn1ZP6ZU4UlecxwgxWNLd\nK7ik+rVAR6NYD4ODDuSg4yzL7AUmwZ+MdJcMZ/nMxeM52+taYoA22kxzBHngciiE\nRIx27eHYpQMs9St1LaS0tJSbcUp7H9t7Hs7W/FpRJPbXHLCrxn7/RtB9yXeWs0FH\nn+eEYW6oCOuxJdfhC3M/nkBchwYhOaiYgqeMSmCKBICP8BSe3IE+j36LS9rAsoAp\nfSwpgQKL7FnNGKe1RT4NQZmhyoRsBCDqd8dH0WyCHSHHINhluAY/DpakQ/oIEYUu\nqPSuGBtTAgMBAAECggEAGRCVUNDTrFfIl7XyNetvjhYKvC6Lf7Nf/oOn4lWIr5+O\n6QVYzPTZbFooES4BCe9cDvRwCbMr1VGT/iYWCGH5uyVH/SNiNP6/QNWpVxJpxLGk\n+8NnYxBTTOthtocLAx9dIutth0Aq5rCBzL5FYG1JtbiDaW7MbGy5F/16VgF/AEYK\nHAG4SXqwyKhc6ba0enc3nP02vGI33H+KuWOFEOQtLQiTM0bZe3H2FUOCVYvavBbn\nxv3OTWIEi7jlQI9rKdcSnxK+c6dRzj6RbLC1bSS2+ERVMO3fes0g1kiDqAGHQPwU\nO0Y4MBP8EXlu1nGGa67jyYUBgHA6vqs/i4CT/fyhgQKBgQDritI1K/rOsWYSCBdC\naPa9FC1mUXN1RRA+xYQcO5xpAjbTmYH7Ib0cV/GLAq182vkdlOQWnnawWDJfaP7N\ngeLaD+JJfNaUr8U/1IDQ0Dw2l5ikMPihhqMJDDz90jYsR227GQ6xJLxifqQOOaAK\nDK5ZQW0cKxhKXH3b9QezFIcEoQKBgQDNKiQcmp7eMQoZpGAm23Gdqy2Li67JdhMO\n9E3Z3R6/IBdls+jqJ0mWabdttxnWPCSKXrYfKXpvPwRJ8TRcMtsLUZXr+BtT59j2\nVjepQNji3zmaCXjMFxS27vlfXrH2C+VDLphZM9h90h+Td9cnRhzQONs58gekpCnd\noHkz/eyncwKBgCp7QyZr5DRbMnmWE/vaSoYXmYiWsCg6aI+puAYPiko2KAVJ7nOI\nxj7SbbIQrZGTPNLlA65Ark9n2M30deBCyNNjggCXD2yJtx2oCgOfSvzdop4aZv1a\n9xSurGFrBHI//7566ndwlLl+9b/LDN5DIz7d2fv2mc7vl5OQQe8+iIuBAoGAVSc1\nf83JPI18FLJ92gLgwEEpES8zp5hjRqStn0xAk7E9JNAsTutpho1wPZBun9WskOXI\nj1yG3Z95Jzt+sPnGoocFQ8Bhj0y+Z1fXmF865cciwEVIJuU5isfbJvNFx8qeKGkx\ngGydYXOR+YIXAcz+7ol6rC1BcNtWKQ+O3r54t/MCgYBl3DKXHDx0iG/qCbeClw4f\n/BQa83Aj71+s32oSHAJIimnpnUAGdHe6IyG7XdqI0Q0c8/7FJV7GMtBdauW02PTO\n/hLPXCw9cKNY5dx/w5LcPA9QNPsM14G7v1vFnONB88uc8YgRD6Il3IXYK+hib7B0\nHLLtbUv6qghFlXw+uF3+Rw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "fashion-discovery@fashion-discovery.iam.gserviceaccount.com",
+  "client_id": "108738932543876345679",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fashion-discovery%40fashion-discovery.iam.gserviceaccount.com"
+}

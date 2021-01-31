@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const fashionFileController = require('./controller/fashionFileController');
 const fashionDiscoverController = require('./controller/fashionDiscoverController');
 const fashionDatabaseController = require('./controller/database/fashionDatabaseController');
+const productController = require('./controller/database/productController');
 const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
@@ -14,6 +15,7 @@ server.use(bodyParser.json());
 server.use('/fashion', fashionFileController);
 server.use('/fashion', fashionDiscoverController);
 server.use('/database', fashionDatabaseController);
+server.use('/products', productController);
 
 server.get('/health', (req, res) => {
     res.status(200).send({healt: 'Server is up and running!'})
