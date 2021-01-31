@@ -27,10 +27,10 @@ const reduce = (imgextract) => {
   imgextract.objects.forEach(element => {
       if (map.get(element.name)) {
           let fashionParts = map.get(element.name)
-          fashionParts.push(element.fashionPart)
+          fashionParts.push({name: element.fashionPart, score: element.score})
           map.set(element.name, fashionParts)
       } else {
-          let fashionParts = [element.fashionPart]
+          let fashionParts = [{name: element.fashionPart, score: element.score}]
           map.set(element.name, fashionParts)
       }
   });
@@ -44,7 +44,7 @@ const reduce = (imgextract) => {
   let labels = []
 
   imgextract.labels.forEach(element => {
-    labels.push(element.description)
+    labels.push({name: element.description, score: element.score})
   })  
 
   let fashionObj = {
@@ -122,12 +122,6 @@ const fashionMetaData = async (id , part) => {
   } else {
     return []
   }
-}
-
-const obj = {
-  uuid: '54067daf-c627-4230-a152-8bebc4572584',
-  piece: 'Bag',
-  description: 'Das ist eine schöne Tasche!!'
 }
 
 const addDescription = async (obj) => {

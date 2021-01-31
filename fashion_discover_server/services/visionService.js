@@ -11,7 +11,7 @@ const client = new vision.ImageAnnotatorClient({
 const extractFashionObjectsAndLabels = async (file) => {
   const request = {
     image: {source: {imageUri: file}},
-    features: [{type: 'LABEL_DETECTION', maxResults: 20},
+    features: [{type: 'LABEL_DETECTION', maxResults: 50},
               {type: 'OBJECT_LOCALIZATION', maxResults: 10}],
   };
   const fashionExtract = await client.annotateImage(request);
@@ -20,11 +20,9 @@ const extractFashionObjectsAndLabels = async (file) => {
 
 const getObjectsAndLabel = async (uploadFile) => {
   const filename = 'gs://fashion-discovery/upload/' + uploadFile.uploadfile;
-  // const [result] = await client.objectLocalization(filename);
   const extracts = await extractFashionObjectsAndLabels(filename);
   const objects = extracts[0].localizedObjectAnnotations;
   const labels = extracts[0].labelAnnotations;
-  // console.log(labels);
   let objectsFiltered = objects.filter((object) => !excludeObjects.includes(object.name));
   let objectAndLabels = {
     objects: objectsFiltered,
@@ -72,18 +70,22 @@ const getObjectDetails = async (id, piece) => {
     text: []
   }
 
+  //Hier Bugfixing
   if (!details[0].labels) {
+    console.log('--details--');
+    console.log(details);
+    console.log('--details ende--');
     console.log('--Determine Details from API--');
     const filename = 'gs://fashion-discovery/fashion/' + piece + '/' + details[0].fashionFiles[0];
     const fash_details = await extractFashionDetails(filename);
     for (i=0;i<fash_details.labels.length;i++) {
-      completeResult.labels.push(fash_details.labels[i].description);
+      completeResult.labels.push({name: fash_details.labels[i].description, score: fash_details.labels[i].score});
     }
     for (i=0;i<fash_details.logos.length;i++) {
-      completeResult.logos.push(fash_details.logos[i].description);
+      completeResult.logos.push({name:fash_details.logos[i].description, score: fash_details.logos[i].score});
     }
     for (i=0;i<fash_details.text.length;i++) {
-      completeResult.text.push(fash_details.text[i].description);
+      completeResult.text.push({name: fash_details.text[i].description, score: fash_details.text[i].confidence});
     }
     addFashionDetails(clothes, piece, completeResult);
   } else {
