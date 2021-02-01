@@ -72,11 +72,8 @@ const getObjectDetails = async (id, piece) => {
 
   //Hier Bugfixing
   if (!details[0].labels) {
-    console.log('--details--');
-    console.log(details);
-    console.log('--details ende--');
     console.log('--Determine Details from API--');
-    const filename = 'gs://fashion-discovery/fashion/' + piece + '/' + details[0].fashionFiles[0];
+    const filename = 'gs://fashion-discovery/fashion/' + piece + '/' + details[0].fashionFiles[0].name;
     const fash_details = await extractFashionDetails(filename);
     for (i=0;i<fash_details.labels.length;i++) {
       completeResult.labels.push({name: fash_details.labels[i].description, score: fash_details.labels[i].score});

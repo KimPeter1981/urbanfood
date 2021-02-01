@@ -80,12 +80,12 @@ let excludes = ['Art','Insect','Soil','Lip','Hairstyle','Photograph','Eyelash','
                 'Finger','Model','Street fashion','Knee','Standing','Product','Holding hands','Peach','Ivory','Wrist','Elbow','Finger',
                 'Photo shoot','Fashion design','Fashion model','Foot','Beauty','Snapshot','Room','Monochrome photography','Human leg',
                 'Eyewear','Chest','Black hair','Hair','Flash photography','Long hair','Floor','Asphalt','Road surface','Flooring','Leg',
-                'Mouth']
+                'Mouth','Holiday','Smile','Christmas tree','Christmas ornament','Holiday ornament','Christmas eve','Christmas']
 
 const excludeInfos = (labels) => {
   let includes = [];
   labels.forEach(label => {
-    if (excludes.findIndex(exclude => exclude === label) === -1) {
+    if (excludes.findIndex(exclude => exclude === label.name) === -1) {
       includes.push(label)
     }
   });
