@@ -14,6 +14,7 @@ import { FashionDetailsService } from './fashion-details/fashion-details.service
 import { HttpClientModule } from '@angular/common/http';
 import { FashionDisplayComponent } from './fashion-display/fashion-display.component';
 import { FashionDetailsComponent } from './fashion-details/fashion-details.component';
+import { FashionSuggestComponent } from './fashion-suggest/fashion-suggest.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FashionDetailsComponent } from './fashion-details/fashion-details.compo
     HeaderComponent,
     UploadComponent,
     FashionDisplayComponent,
-    FashionDetailsComponent
+    FashionDetailsComponent,
+    FashionSuggestComponent
   ],
   imports: [
     BrowserModule,
