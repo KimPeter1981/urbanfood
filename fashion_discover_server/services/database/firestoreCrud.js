@@ -131,4 +131,17 @@ const addDescription = async (obj) => {
   save(fashion);
 }
 
+const getAllPieces = async (piece) => {
+  console.log('getAllPieces');
+  let fashionRef = await db.collection("fashion_metadata");
+  let query = await fashionRef.where("name", "==", piece).get();
+  console.log(query.empty);
+}
+
+const test = async () => {
+  await getAllPieces('Dress');
+}
+
+test();
+
 module.exports = {getAll, getDocument, saveFashionSet, fashionSetPreview, fashionMetaData, save, getFashionPiece, addDescription}
