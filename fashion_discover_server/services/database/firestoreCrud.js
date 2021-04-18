@@ -68,6 +68,11 @@ const save = async (fashion) => {
   await fashionMetaRef.doc(fashion.uuid).set(fashion);
 }
 
+const saveDetails = async (fashionDetails) => {
+  const fashionMetaRef = await db.collection('fashion_pieces');
+  await fashionMetaRef.doc(fashionDetails.uuid).set(fashionDetails);
+}
+
 const fashionSetPreview = async (id) => {
   const fashionMetaRef = await db.collection('fashion_metadata').doc(id);
   const snapshot =  await fashionMetaRef.get();
@@ -133,15 +138,13 @@ const addDescription = async (obj) => {
 
 const getAllPieces = async (piece) => {
   console.log('getAllPieces');
-  let fashionRef = await db.collection("fashion_metadata");
-  let query = await fashionRef.where("name", "==", piece).get();
-  console.log(query.empty);
+  let documentList = await db.collection("fashion_metadata").listDocuments();
+  console.log(documentList);
 }
 
-const test = async () => {
-  await getAllPieces('Dress');
-}
 
-test();
-
-module.exports = {getAll, getDocument, saveFashionSet, fashionSetPreview, fashionMetaData, save, getFashionPiece, addDescription}
+module.exports = {getAll, getDocument, 
+                saveFashionSet, fashionSetPreview, 
+                fashionMetaData, save, 
+                getFashionPiece, 
+                addDescription, saveDetails}

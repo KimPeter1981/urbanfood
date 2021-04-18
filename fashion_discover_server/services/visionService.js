@@ -37,11 +37,22 @@ const extractFashionPiece = (clothes, piece) => {
 }
 
 const addFashionDetails = async (fashionInfo, part, details) => {
-  let fashionSet = fashionInfo.fashionSet;
-  let index = fashionSet.findIndex((fashion) => fashion.name === part)
-  fashionSetExtended = {...fashionSet[index], ...details}
-  fashionInfo.fashionSet[index] = fashionSetExtended
-  database.save(fashionInfo);
+  // let fashionSet = fashionInfo.fashionSet;
+  // let index = fashionSet.findIndex((fashion) => fashion.name === part)
+  // fashionSetExtended = {...fashionSet[index], ...details}
+  // fashionInfo.fashionSet[index] = fashionSetExtended
+  // console.log('---addFashionDetails----');
+  // console.log(fashionInfo);
+  // console.log(part);
+  // console.log(details);
+  // console.log('---addFashionDetails Info----');
+  // database.save(fashionInfo);
+  let fashionDetails = {
+    uuid: fashionInfo.uuid,
+    part: part,
+    details: details
+  }
+  database.saveDetails(fashionDetails);
 }
 
 const extractFashionDetails = async (file) => {
