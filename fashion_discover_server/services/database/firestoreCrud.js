@@ -138,10 +138,13 @@ const addDescription = async (obj) => {
 
 const getAllPieces = async (piece) => {
   console.log('getAllPieces');
-  let documentList = await db.collection("fashion_metadata").listDocuments();
-  console.log(documentList);
+  let documentList = await db.collection("fashion_pieces").orderBy('uuid').startAfter('96bfcaa1-8d14-48f7-bdb4-9bceeb061a7d').get();
+  documentList.forEach(doc => {
+    console.log(doc.id, '=>', doc.data());
+  });
 }
 
+getAllPieces();
 
 module.exports = {getAll, getDocument, 
                 saveFashionSet, fashionSetPreview, 
