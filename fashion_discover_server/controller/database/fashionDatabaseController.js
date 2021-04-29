@@ -48,6 +48,17 @@ router.get('/fashionPiece', async (req, res) => {
     res.status(200).send(result);
 })
 
+router.get('/piece', async (req, res) => {
+    const startId = req.query.startId;
+
+    if (!startId) {
+        res.status(400).send({message: 'startId must be specified'})
+    }
+
+    const result = await database.getPieces(startId);
+    res.status(200).send(result);
+})
+
 router.get('/fashionpiece', async (req, res) => {
     const uuid = req.query.id;
     const piece = req.query.piece;

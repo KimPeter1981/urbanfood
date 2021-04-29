@@ -136,18 +136,25 @@ const addDescription = async (obj) => {
   save(fashion);
 }
 
-const getAllPieces = async (piece) => {
+const getPieces = async (startId) => {
   console.log('getAllPieces');
-  let documentList = await db.collection("fashion_pieces").orderBy('uuid').startAfter('96bfcaa1-8d14-48f7-bdb4-9bceeb061a7d').get();
+  //let documentList = await db.collection("fashion_pieces").orderBy('uuid').startAfter('96bfcaa1-8d14-48f7-bdb4-9bceeb061a7d').get();
+  let documentList = await db.collection("fashion_pieces").orderBy('uuid').startAfter(startId).limit(2).get();
+  let docArray = [];
   documentList.forEach(doc => {
-    console.log(doc.id, '=>', doc.data());
+    // console.log(doc.id, '=>', doc.data());
+    docArray.push(doc.data())
   });
+
+  return {
+    pieces: docArray
+  }
 }
 
-getAllPieces();
+// getAllPieces();
 
 module.exports = {getAll, getDocument, 
                 saveFashionSet, fashionSetPreview, 
                 fashionMetaData, save, 
                 getFashionPiece, 
-                addDescription, saveDetails}
+                addDescription, saveDetails, getPieces}
