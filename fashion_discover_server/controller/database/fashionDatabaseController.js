@@ -68,7 +68,7 @@ router.get('/fashionpiece', async (req, res) => {
     }
 
     if (!piece) {
-        res.status(400).send({message: 'UUID must be specified!'});
+        res.status(400).send({message: 'Piece must be specified!'});
     }
 
     const result = await database.fashionMetaData(uuid, piece);

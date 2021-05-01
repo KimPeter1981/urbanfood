@@ -41,7 +41,7 @@ const addFashionDetails = async (fashionInfo, part, details) => {
   console.log(fashionInfo);
   let fashionFiles = fashionInfo.fashionSet.filter((s) => s.name === part)
   let fashionDetails = {
-    uuid: fashionInfo.uuid,
+    uuid_meta: fashionInfo.uuid,
     part: part,
     details: details,
     files: fashionFiles

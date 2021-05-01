@@ -1,4 +1,5 @@
 const Firestore = require('@google-cloud/firestore');
+const { v4: uuidv4 } = require('uuid');
 
 const db = new Firestore({
   projectId: 'fashion-discovery',
@@ -70,7 +71,14 @@ const save = async (fashion) => {
 
 const saveDetails = async (fashionDetails) => {
   const fashionMetaRef = await db.collection('fashion_pieces');
-  await fashionMetaRef.doc(fashionDetails.uuid).set(fashionDetails);
+  let uuid = uuidv4();
+  await fashionMetaRef.doc(uuid).set(fashionDetails);
+  let fashionMetaData = await fashionSetPreview(fashionDetails.uuid_meta);
+  let indexSearchFun = (element) => element.name === fashionDetails.part;
+  let searchIndex = fashionMetaData.fashionSet.findIndex(indexSearchFun);
+  fashionMetaData.fashionSet[searchIndex].uuid_piece = uuid;
+  save(fashionMetaData); 
+  console.log('---save details finish--');
 }
 
 const fashionSetPreview = async (id) => {
@@ -111,10 +119,12 @@ const getFashionPart = (fashion, part) => {
 }
 
 const getFashionPiece = async (id, piece) => {
-  let fashion = await fashionSetPreview(id);
-  let fashionPiece = getFashionPart(fashion, piece);
-  fashionPiece[0].uploadfile = fashion.uploadfile;
-  return fashionPiece;
+  // let fashion = await fashionSetPreview(id);
+  // let fashionPiece = getFashionPart(fashion, piece);
+  // fashionPiece[0].uploadfile = fashion.uploadfile;
+  const fashionPieceRef = await db.collection('fashion_pieces').doc(id);
+  const snapshotPiece =  await fashionPieceRef.where('part', '==', piece).get();
+  return snapshotPiece.data();
 }
 
 const fashionMetaData = async (id , part) => {
