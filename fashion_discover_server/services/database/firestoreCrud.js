@@ -119,14 +119,24 @@ const getFashionPart = (fashion, part) => {
 }
 
 const getFashionPiece = async (id) => {
-  // let fashion = await fashionSetPreview(id);
-  // let fashionPiece = getFashionPart(fashion, piece);
-  // fashionPiece[0].uploadfile = fashion.uploadfile;
   const fashionPieceRef = await db.collection('fashion_pieces').doc(id);
   // const snapshotPiece =  await fashionPieceRef.where('part', '==', piece).get();
   const snapshotPiece =  await fashionPieceRef.get();
   return snapshotPiece.data();
 }
+
+const getFashionPieceData = async (id, piece) => {
+  const fashionPieceRef = await db.collection('fashion_pieces');
+  const snapshotPiece = await fashionPieceRef.where('uuid_meta', '==', id).get();
+  let allPieces = [];
+  snapshotPiece.forEach(doc => {
+    allPieces.push(doc.data());
+  });
+  const filterPieces = allPieces.filter((element) => element.part === piece);
+  return filterPieces;
+}
+
+// getFashionPieceData('6e9b25a2-d1b0-45be-9fc7-9cac46307407', 'Shoe');
 
 const fashionMetaData = async (id , part) => {
   const fashionMetaRef = await db.collection('fashion_metadata').doc(id);
@@ -168,4 +178,4 @@ module.exports = {getAll, getDocument,
                 saveFashionSet, fashionSetPreview, 
                 fashionMetaData, save, 
                 getFashionPiece, 
-                addDescription, saveDetails, getPieces}
+                addDescription, saveDetails, getPieces, getFashionPieceData}

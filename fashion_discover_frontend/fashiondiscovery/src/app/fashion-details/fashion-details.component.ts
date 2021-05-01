@@ -35,6 +35,7 @@ export class FashionDetailsComponent implements OnInit {
     this.fashionDetailsService.getFashionPiece(this.uuid, this.piece).subscribe(
       data => {
         this.fashionPiece = data;
+        console.log(this.fashionPiece);
         if (this.fashionPiece[0].description) {
           this.description = this.fashionPiece[0].description;
         }
