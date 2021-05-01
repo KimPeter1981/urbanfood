@@ -34,17 +34,12 @@ router.get('/fashionSetPreview', async (req, res) => {
 
 router.get('/fashionPiece', async (req, res) => {
     const uuid = req.query.id;
-    const piece = req.query.piece;
 
     if (!uuid) {
         res.status(400).send({message: 'UUID must be specified!'});
     }
 
-    if (!piece) {
-        res.status(400).send({message: 'piece must be specified!'});
-    }
-
-    const result = await database.getFashionPiece(uuid, piece);
+    const result = await database.getFashionPiece(uuid);
     res.status(200).send(result);
 })
 

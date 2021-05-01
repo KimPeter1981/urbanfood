@@ -118,12 +118,13 @@ const getFashionPart = (fashion, part) => {
   return piece;
 }
 
-const getFashionPiece = async (id, piece) => {
+const getFashionPiece = async (id) => {
   // let fashion = await fashionSetPreview(id);
   // let fashionPiece = getFashionPart(fashion, piece);
   // fashionPiece[0].uploadfile = fashion.uploadfile;
   const fashionPieceRef = await db.collection('fashion_pieces').doc(id);
-  const snapshotPiece =  await fashionPieceRef.where('part', '==', piece).get();
+  // const snapshotPiece =  await fashionPieceRef.where('part', '==', piece).get();
+  const snapshotPiece =  await fashionPieceRef.get();
   return snapshotPiece.data();
 }
 

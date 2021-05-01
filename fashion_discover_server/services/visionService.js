@@ -37,8 +37,6 @@ const extractFashionPiece = (clothes, piece) => {
 }
 
 const addFashionDetails = async (fashionInfo, part, details) => {
-  console.log('---addFashionDetails----');
-  console.log(fashionInfo);
   let fashionFiles = fashionInfo.fashionSet.filter((s) => s.name === part)
   let fashionDetails = {
     uuid_meta: fashionInfo.uuid,
@@ -67,7 +65,11 @@ const extractFashionDetails = async (file) => {
 
 const getObjectDetails = async (id, piece) => {
   const clothes = await database.fashionSetPreview(id);
-  const details = extractFashionPiece(clothes, piece);
+  let details = extractFashionPiece(clothes, piece);
+
+  console.log('---DETAILS---');
+  console.log(details);
+  console.log('---DETAILS FINISH---');
 
   let completeResult = {
     labels: [],
@@ -76,7 +78,7 @@ const getObjectDetails = async (id, piece) => {
   }
 
   //Hier Bugfixing
-  if (!details[0].labels) {
+  if (!details[0].uuid_piece) {
     console.log('--Determine Details from API--');
     const filename = 'gs://fashion-discovery/fashion/' + piece + '/' + details[0].fashionFiles[0].name;
     const fash_details = await extractFashionDetails(filename);
@@ -92,9 +94,11 @@ const getObjectDetails = async (id, piece) => {
     addFashionDetails(clothes, piece, completeResult);
   } else {
     console.log('--Determine details from Database---');
-    completeResult.labels = details[0].labels;
-    completeResult.logos = details[0].logos;
-    completeResult.text = details[0].text
+    console.log(details[0].uuid_piece);
+    details = await database.getFashionPiece(details[0].uuid_piece);
+    completeResult.labels = details.details.labels;
+    completeResult.logos = details.details.logos;
+    completeResult.text = details.details.text;
   }
 
   return completeResult;
